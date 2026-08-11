@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "about": "About",
+    "features": "Features",
+    "occasions": "Occasions",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "AR TRADITIONAL FOODS",
+    "title": "Atreyapuram",
+    "subtitle": "Pootharekulu",
+    "description": "Experience the authentic taste of Atreyapuram Pootharekulu and traditional Andhra sweets. Handcrafted with love, delivered worldwide to your doorstep.",
+    "exploreButton": "Explore Sweets",
+    "orderButton": "Order Now",
+    "varieties": "Varieties",
+    "pureFresh": "Pure & Fresh",
+    "customers": "Happy Customers",
+    "worldwideShipping": "Worldwide Shipping Available"
+  },
+  "products": {
+    "sectionTag": "OUR DELICACIES",
+    "title": "Pootharekulu Varieties",
+    "description": "Explore our handcrafted collection of authentic Atreyapuram Pootharekulu, the legendary paper-thin sweet delicacy made with traditional recipes passed down through generations.",
+    "categoryAll": "All",
+    "categoryClassic": "Classic",
+    "categoryPremium": "Premium",
+    "categorySpecial": "Special",
+    "orderButton": "Order on WhatsApp",
+    "bulkOrderText": "Looking for bulk orders or custom varieties? We're here to help!",
+    "catalogButton": "View Full Catalog on WhatsApp",
+    "pack": "Pack of 10 pieces",
+    "traditional": {
+      "name": "Traditional Pootharekulu",
+      "description": "Classic paper-thin rice wafers with pure jaggery & ghee"
+    },
+    "karampodi": {
+      "name": "Karampodi Pootharekulu",
+      "description": "Premium pootharekulu filled with spicy karampodi"
+    },
+    "chocolate": {
+      "name": "Chocolate Pootharekulu",
+      "description": "Modern fusion with rich dark chocolate filling"
+    },
+    "jaggeryDryFruits": {
+      "name": "Jaggery Dry Fruits Pootharekulu",
+      "description": "Traditional recipe with organic jaggery & dry fruits"
+    },
+    "sugarDryFruits": {
+      "name": "Sugar Dry Fruits Pootharekulu",
+      "description": "Classic pootharekulu with pure sugar & dry fruits"
+    },
+    "kova": {
+      "name": "Kova Pootharekulu",
+      "description": "Rich pootharekulu with creamy milk kova filling"
+    },
+    "samosa": {
+      "name": "Samosa Pootharekulu",
+      "description": "Savory pootharekulu with spicy samosa filling"
+    },
+    "horlicksBoost": {
+      "name": "Horlicks & Boost Pootharekulu",
+      "description": "Nutritious pootharekulu with Horlicks & Boost filling"
+    },
+    "sugarFree": {
+      "name": "Sugar Free Pootharekulu",
+      "description": "Diabetic-friendly pootharekulu with sugar alternatives"
+    }
+  },
+  "about": {
+    "tag": "OUR STORY",
+    "title": "Tradition Meets Excellence",
+    "story": "For generations, AR Traditional Foods has been crafting authentic Atreyapuram Pootharekulu using time-honored recipes and the finest ingredients. Each delicate sweet is a testament to our commitment to preserving Andhra's rich culinary heritage.",
+    "handcrafted": "Handcrafted with Love",
+    "handcraftedDesc": "Every piece is carefully made by skilled artisans",
+    "certified": "FSSAI Certified",
+    "certifiedDesc": "Highest quality and safety standards",
+    "celebrating": "Celebrating Traditions"
+  },
+  "footer": {
+    "tagline": "Bringing authentic Andhra flavors to your doorstep",
+    "quickLinks": "Quick Links",
+    "products": "Our Products",
+    "contactUs": "Contact Us",
+    "location": "Atreyapuram, Andhra Pradesh",
+    "followUs": "Follow Us",
+    "rights": "All rights reserved."
+  },
+  "features": {
+    "tag": "OCCASIONS & CATEGORIES",
+    "title": "Perfect for Every Occasion",
+    "description": "Whether it's a festival, celebration, or just a sweet craving, we have the perfect sweets for every moment.",
+    "orderButton": "Order Your Favorites Now"
+  },
+  "contact": {
+    "tag": "GET IN TOUCH",
+    "title": "Order Now",
+    "description": "Ready to experience the authentic taste of Andhra? Contact us through WhatsApp for quick orders and inquiries.",
+    "whatsappTitle": "Order via WhatsApp",
+    "whatsappDesc": "Browse our catalog, place your order, and make payment directly through WhatsApp Business. It's quick, easy, and secure!",
+    "whatsappButton": "Open WhatsApp Catalog",
+    "otherWays": "Other Ways to Reach Us"
+  }
+}
