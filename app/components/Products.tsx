@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 
 export default function Products() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.1 }); // Reduced from 0.2 to 0.1 for better mobile support
   const [selectedCategory, setSelectedCategory] = useState("All");
   const t = useTranslations('products');
 
@@ -142,7 +142,7 @@ export default function Products() {
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              animate={{ opacity: 1, y: 0 }} // Always animate, remove isInView dependency for cards
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -10 }}
               className="group"
