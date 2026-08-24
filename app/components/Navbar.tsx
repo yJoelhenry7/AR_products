@@ -3,14 +3,25 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { FaShoppingCart } from "react-icons/fa";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { useCart } from '../context/CartContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
   const t = useTranslations('nav');
+  const locale = useLocale();
+  const { items, getTotalItems } = useCart();
+  const cartItemCount = getTotalItems();
+  
+  // Check if we're on cart page
+  const isCartPage = pathname?.includes('/cart');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +46,7 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled
+        scrolled || isCartPage
           ? "bg-[var(--maroon)]/95 backdrop-blur-md shadow-lg"
           : "bg-transparent"
       }`}
@@ -85,6 +96,28 @@ export default function Navbar() {
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
                 <LanguageSwitcher />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.75 }}
+              >
+                <Link
+                  href={`/${locale}/cart`}
+                  className="flex items-center gap-2 text-white hover:text-[var(--gold)] transition-colors duration-300 p-2"
+                >
+                  <FaShoppingCart className="h-6 w-6" />
+                  {cartItemCount > 0 && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      key={cartItemCount}
+                      className="bg-[var(--gold)] text-[var(--maroon)] text-sm font-bold rounded-full px-2.5 py-0.5 min-w-[24px] text-center"
+                    >
+                      {cartItemCount}
+                    </motion.span>
+                  )}
+                </Link>
               </motion.div>
               <motion.a
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -149,6 +182,27 @@ export default function Navbar() {
                 className="px-3 py-2"
               >
                 <LanguageSwitcher />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3, delay: 0.45 }}
+                className="px-3 py-2"
+              >
+                <Link
+                  href={`/${locale}/cart`}
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-3 text-white hover:text-[var(--gold)] transition-colors duration-300"
+                >
+                  <FaShoppingCart className="h-5 w-5" />
+                  <span>Cart</span>
+                  {cartItemCount > 0 && (
+                    <span className="bg-[var(--gold)] text-[var(--maroon)] text-sm font-bold rounded-full px-2.5 py-0.5 min-w-[24px] text-center">
+                      {cartItemCount}
+                    </span>
+                  )}
+                </Link>
               </motion.div>
               <motion.a
                 initial={{ opacity: 0, x: -20 }}

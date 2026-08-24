@@ -1,14 +1,35 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { HiArrowDown } from "react-icons/hi";
-import { GiCupcake } from "react-icons/gi";
+import { GiChopsticks } from "react-icons/gi";
 import { MdVerified, MdStar } from "react-icons/md";
 import { FaGlobeAsia } from "react-icons/fa";
 import { useTranslations } from 'next-intl';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function Hero() {
   const t = useTranslations('hero');
+  const [currentImage, setCurrentImage] = useState(0);
+  
+  // Product images for carousel
+  const carouselImages = [
+    "/putharekulu/karampodi_putharekhulu.jpg",
+    "/putharekulu/choclate_putharekhulu.jpg",
+    "/putharekulu/bellam_dry_fruits_putharekhulu.jpg",
+    "/putharekulu/sugar_dry_fruits_putharekhulu.jpg",
+    "/putharekulu/kova_putharekhulu.jpg",
+  ];
+
+  // Auto-play carousel with smoother transitions
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % carouselImages.length);
+    }, 5000); // Change image every 5 seconds for smoother experience
+
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
   
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -35,9 +56,38 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[var(--maroon)] via-[var(--burgundy-800)] to-[var(--burgundy-900)]"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Animated background pattern */}
+      {/* Image Carousel Background */}
+      <div className="absolute inset-0">
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentImage}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ 
+              duration: 2,
+              ease: "easeInOut"
+            }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={carouselImages[currentImage]}
+              alt="Pootharekulu"
+              fill
+              className="object-cover"
+              priority={currentImage === 0}
+              sizes="100vw"
+            />
+          </motion.div>
+        </AnimatePresence>
+        
+        {/* Subtle dark overlay for text readability - reduced opacity to showcase images */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-[var(--maroon)]/30 to-black/50" />
+      </div>
+
+      {/* Animated pattern overlay */}
       <div className="absolute inset-0 opacity-10">
         <motion.div
           animate={{
@@ -99,7 +149,7 @@ export default function Hero() {
               className="inline-block px-6 py-2 bg-[var(--gold)]/20 backdrop-blur-sm border border-[var(--gold)]/50 rounded-full text-[var(--gold)] text-sm md:text-base font-semibold tracking-wider"
             >
               <span className="inline-flex items-center gap-2">
-                <GiCupcake className="w-5 h-5" />
+                <GiChopsticks className="w-5 h-5" />
                 {t('tagline')}
               </span>
             </motion.span>
@@ -147,7 +197,7 @@ export default function Hero() {
             className="grid grid-cols-3 gap-8 max-w-4xl mx-auto pt-16"
           >
             {[
-              { number: "20+", label: t('varieties'), icon: <GiCupcake className="w-8 h-8" /> },
+              { number: "20+", label: t('varieties'), icon: <GiChopsticks className="w-8 h-8" /> },
               { number: "100%", label: t('pureFresh'), icon: <MdVerified className="w-8 h-8" /> },
               { number: "5000+", label: t('customers'), icon: <MdStar className="w-8 h-8" /> },
             ].map((stat, index) => (
@@ -168,6 +218,27 @@ export default function Hero() {
                   {stat.label}
                 </div>
               </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Carousel Indicators */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+            className="mt-8 flex justify-center gap-2"
+          >
+            {carouselImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImage(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  index === currentImage
+                    ? 'w-8 bg-[var(--gold)]'
+                    : 'w-2 bg-white/50 hover:bg-white/80'
+                }`}
+                aria-label={`Go to image ${index + 1}`}
+              />
             ))}
           </motion.div>
 

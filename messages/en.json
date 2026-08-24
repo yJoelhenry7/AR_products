@@ -27,10 +27,15 @@
     "categoryClassic": "Classic",
     "categoryPremium": "Premium",
     "categorySpecial": "Special",
+    "categorySweets & Hot": "Sweets & Hot",
     "orderButton": "Order on WhatsApp",
+    "addToCart": "Add to Cart",
+    "added": "Added!",
+    "adding": "Adding...",
     "bulkOrderText": "Looking for bulk orders or custom varieties? We're here to help!",
     "catalogButton": "View Full Catalog on WhatsApp",
     "pack": "Pack of 10 pieces",
+    "perKg": "per kg",
     "traditional": {
       "name": "Traditional Pootharekulu",
       "description": "Classic paper-thin rice wafers with pure jaggery & ghee"
@@ -66,6 +71,58 @@
     "sugarFree": {
       "name": "Sugar Free Pootharekulu",
       "description": "Diabetic-friendly pootharekulu with sugar alternatives"
+    },
+    "bellamKommulu": {
+      "name": "Bellam Kommulu",
+      "description": "Traditional jaggery-coated puffed rice snack - sweet & crispy per kg"
+    },
+    "chegodilu": {
+      "name": "Chegodilu",
+      "description": "Crunchy ring-shaped savory snack made with rice flour - per kg"
+    },
+    "bellamBoondi": {
+      "name": "Bellam Boondi",
+      "description": "Sweet jaggery boondi - tiny, crispy, and delicious per kg"
+    },
+    "karamVerusenagalu": {
+      "name": "Karam Verusenagalu",
+      "description": "Spicy fried peanuts with chili powder - perfect hot snack per kg"
+    },
+    "bellamMukkalu": {
+      "name": "Bellam Mukkalu",
+      "description": "Traditional jaggery pieces - pure and natural sweetness per kg"
+    },
+    "atukuluMixture": {
+      "name": "Atukulu Mixture",
+      "description": "Crispy flattened rice mixture with spices and nuts per kg"
+    },
+    "janthikalu": {
+      "name": "Janthikalu",
+      "description": "Crunchy spiral-shaped savory snack - perfect tea-time treat per kg"
+    },
+    "masalaMixture": {
+      "name": "Masala Mixture",
+      "description": "Spicy and crunchy savory mixture with aromatic masala per kg"
+    },
+    "masalaPapad": {
+      "name": "Masala Papad",
+      "description": "Crispy spiced papad - instant snack delight per kg"
+    },
+    "ringGavvalu": {
+      "name": "Ring Gavvalu",
+      "description": "Ring-shaped crunchy snack made with rice flour per kg"
+    },
+    "sannaSev": {
+      "name": "Sanna Sev",
+      "description": "Fine thread-like crispy sev - delicate and tasty per kg"
+    },
+    "sunnundalu": {
+      "name": "Sunnundalu",
+      "description": "Traditional urad dal sweet balls - rich and nutritious per kg"
+    },
+    "verusenagaUndalu": {
+      "name": "Verusenaga Undalu",
+      "description": "Peanut sweet balls with jaggery - crunchy and wholesome per kg"
     }
   },
   "about": {
@@ -101,5 +158,41 @@
     "whatsappDesc": "Browse our catalog, place your order, and make payment directly through WhatsApp Business. It's quick, easy, and secure!",
     "whatsappButton": "Open WhatsApp Catalog",
     "otherWays": "Other Ways to Reach Us"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your Cart is Empty",
+    "emptyDesc": "Looks like you haven't added any items to your cart yet.",
+    "continueShopping": "Continue Shopping",
+    "orderSummary": "Order Summary",
+    "item": "item",
+    "items": "{count, plural, =1 {1 item} other {# items}}",
+    "quantity": "Quantity",
+    "price": "Price",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Checkout via WhatsApp",
+    "deliveryTitle": "Delivery Details",
+    "deliveryDesc": "Please provide your delivery information",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "fullNameRequired": "Full name is required",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+91 98765 43210",
+    "phoneRequired": "Phone number is required",
+    "phoneInvalid": "Please enter a valid phone number",
+    "address": "Delivery Address",
+    "addressPlaceholder": "Enter your complete address",
+    "addressRequired": "Delivery address is required",
+    "city": "City / State",
+    "cityPlaceholder": "Enter city and state",
+    "cityRequired": "City/State is required",
+    "pincode": "Pincode",
+    "pincodePlaceholder": "Enter 6-digit pincode",
+    "pincodeRequired": "Pincode is required",
+    "pincodeInvalid": "Please enter a valid 6-digit pincode",
+    "landmark": "Landmark (Optional)",
+    "landmarkPlaceholder": "Nearby landmark or reference point"
   }
 }

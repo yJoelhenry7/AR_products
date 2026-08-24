@@ -4,6 +4,7 @@ import JsonLd from "../components/JsonLd";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { CartProvider } from '../context/CartContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -115,7 +116,9 @@ export default async function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages} locale={locale}>
-          {children}
+          <CartProvider>
+            {children}
+          </CartProvider>
         </NextIntlClientProvider>
       </body>
     </html>

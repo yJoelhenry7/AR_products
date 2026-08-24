@@ -5,12 +5,15 @@ import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from 'next-intl';
+import { useCart } from '../context/CartContext';
+import { FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
 
 export default function Products() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 }); // Reduced from 0.2 to 0.1 for better mobile support
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
   const [selectedCategory, setSelectedCategory] = useState("All");
   const t = useTranslations('products');
+  const { items, addToCart, updateQuantity, removeFromCart } = useCart();
 
   const products = [
     {
@@ -61,12 +64,125 @@ export default function Products() {
       image: "/putharekulu/diet_sugar_putharekhulu.jpg",
       price: "₹300",
     },
+    // Sweets & Hot Category
+    {
+      id: "bellamKommulu",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/bellam kommulu.jpg",
+      price: "₹350",
+    },
+    {
+      id: "chegodilu",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/chegodilu.jpg",
+      price: "₹350",
+    },
+    {
+      id: "bellamBoondi",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/Bellam boondi.jpg",
+      price: "₹350",
+    },
+    {
+      id: "karamVerusenagalu",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/Karam Verusenagalu.jpg",
+      price: "₹350",
+    },
+    {
+      id: "bellamMukkalu",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/Bellam Mukkalu.jpg",
+      price: "₹350",
+    },
+    {
+      id: "atukuluMixture",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/Atukulu Mixture.jpg",
+      price: "₹350",
+    },
+    {
+      id: "janthikalu",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/janthikalu.jpg",
+      price: "₹350",
+    },
+    {
+      id: "masalaMixture",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/Masala Mixture.jpg",
+      price: "₹350",
+    },
+    {
+      id: "masalaPapad",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/Masala Papad.jpg",
+      price: "₹350",
+    },
+    {
+      id: "ringGavvalu",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/Ring Gavvalu.jpg",
+      price: "₹350",
+    },
+    {
+      id: "sannaSev",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/Sanna Sev.jpg",
+      price: "₹350",
+    },
+    {
+      id: "sunnundalu",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/sunnundalu.jpg",
+      price: "₹350",
+    },
+    {
+      id: "verusenagaUndalu",
+      category: "Sweets & Hot",
+      image: "/products/sweets and hot/Verusenaga_Undalu.jpg",
+      price: "₹350",
+    },
   ];
 
   const filteredProducts =
     selectedCategory === "All"
       ? products
       : products.filter((p) => p.category === selectedCategory);
+
+  // Get quantity of a product in cart
+  const getProductQuantity = (productId: string): number => {
+    const cartItem = items.find(item => item.id === productId);
+    return cartItem ? cartItem.quantity : 0;
+  };
+
+  const handleAddToCart = (product: typeof products[0]) => {
+    const priceNumber = parseInt(product.price.replace('₹', ''));
+    addToCart({
+      id: product.id,
+      name: t(`${product.id}.name`),
+      price: priceNumber,
+      image: product.image,
+    });
+  };
+
+  const handleIncrement = (product: typeof products[0]) => {
+    const currentQty = getProductQuantity(product.id);
+    if (currentQty === 0) {
+      handleAddToCart(product);
+    } else if (currentQty < 10) {
+      updateQuantity(product.id, currentQty + 1);
+    }
+  };
+
+  const handleDecrement = (productId: string) => {
+    const currentQty = getProductQuantity(productId);
+    if (currentQty === 1) {
+      removeFromCart(productId);
+    } else if (currentQty > 1) {
+      updateQuantity(productId, currentQty - 1);
+    }
+  };
 
   return (
     <section
@@ -116,7 +232,7 @@ export default function Products() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-4 mb-16"
         >
-          {['All', 'Classic', 'Premium', 'Special'].map((category, index) => (
+          {['All', 'Classic', 'Premium', 'Special', 'Sweets & Hot'].map((category, index) => (
             <motion.button
               key={category}
               initial={{ opacity: 0, scale: 0.8 }}
@@ -181,17 +297,51 @@ export default function Products() {
                       <span className="text-2xl font-bold text-[var(--gold-700)]">
                         {product.price}
                       </span>
-                      <p className="text-xs text-gray-500">{t('pack')}</p>
+                      <p className="text-xs text-gray-500">
+                        {product.category === 'Sweets & Hot' ? t('perKg') : t('pack')}
+                      </p>
                     </div>
                   </div>
-                  <motion.a
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    href="#contact"
-                    className="block w-full bg-[var(--maroon)] text-white text-center py-3 rounded-lg font-semibold hover:bg-[var(--burgundy-800)] transition-all duration-300 shadow-md hover:shadow-lg"
-                  >
-                    {t('orderButton')}
-                  </motion.a>
+                  
+                  {/* Quantity Controls */}
+                  {getProductQuantity(product.id) > 0 ? (
+                    <div className="flex items-center justify-between gap-3">
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => handleDecrement(product.id)}
+                        className="flex items-center justify-center w-10 h-10 bg-[var(--maroon)] text-white rounded-lg hover:bg-[var(--burgundy-800)] transition-all duration-300 shadow-md"
+                      >
+                        <FaMinus className="w-4 h-4" />
+                      </motion.button>
+                      
+                      <div className="flex-1 flex items-center justify-center bg-gray-100 rounded-lg py-2">
+                        <span className="text-xl font-bold text-[var(--maroon)]">
+                          {getProductQuantity(product.id)}
+                        </span>
+                      </div>
+                      
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => handleIncrement(product)}
+                        disabled={getProductQuantity(product.id) >= 10}
+                        className="flex items-center justify-center w-10 h-10 bg-[var(--maroon)] text-white rounded-lg hover:bg-[var(--burgundy-800)] transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        <FaPlus className="w-4 h-4" />
+                      </motion.button>
+                    </div>
+                  ) : (
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleAddToCart(product)}
+                      className="flex items-center justify-center gap-2 w-full py-3 rounded-lg font-semibold bg-[var(--maroon)] text-white hover:bg-[var(--burgundy-800)] transition-all duration-300 shadow-md hover:shadow-lg"
+                    >
+                      <FaShoppingCart className="w-4 h-4" />
+                      {t('addToCart')}
+                    </motion.button>
+                  )}
                 </div>
               </div>
             </motion.div>
