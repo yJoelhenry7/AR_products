@@ -4,15 +4,17 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useCart } from '../context/CartContext';
 import { FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function Products() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   const [selectedCategory, setSelectedCategory] = useState("All");
   const t = useTranslations('products');
+  const locale = useLocale();
   const { items, addToCart, updateQuantity, removeFromCart } = useCart();
 
   const products = [
@@ -304,6 +306,7 @@ export default function Products() {
                   </div>
                   
                   {/* Quantity Controls */}
+                  <div className="mt-auto flex flex-col gap-2">
                   {getProductQuantity(product.id) > 0 ? (
                     <div className="flex items-center justify-between gap-3">
                       <motion.button
@@ -342,6 +345,14 @@ export default function Products() {
                       {t('addToCart')}
                     </motion.button>
                   )}
+                    <Link
+                      href={`/${locale}/cart`}
+                      className="flex items-center justify-center gap-2 w-full py-3 rounded-lg font-semibold bg-[var(--gold)] text-[var(--maroon)] border-2 border-[var(--gold)] hover:bg-[var(--gold-400)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md"
+                    >
+                      <FaShoppingCart className="w-4 h-4" />
+                      {locale === 'te' ? 'కార్ట్ చూడండి' : 'View Cart'}
+                    </Link>
+                  </div>
                 </div>
               </div>
             </motion.div>
