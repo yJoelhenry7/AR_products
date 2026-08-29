@@ -15,11 +15,11 @@ export default function Hero() {
   
   // Product images for carousel
   const carouselImages = [
-    "/putharekulu/karampodi_putharekhulu.jpg",
-    "/putharekulu/choclate_putharekhulu.jpg",
-    "/putharekulu/bellam_dry_fruits_putharekhulu.jpg",
-    "/putharekulu/sugar_dry_fruits_putharekhulu.jpg",
-    "/putharekulu/kova_putharekhulu.jpg",
+    "/products/putharekulu/chocolate-pootharekulu.png",
+    "/products/putharekulu/jaggery-dry-fruits-pootharekulu.png",
+    "/products/putharekulu/dry-fruit-pootharekulu.png",
+    "/products/putharekulu/kova-pootharekulu.png",
+    "/products/putharekulu/traditional-pootharekulu.png",
   ];
 
   // Auto-play carousel with smoother transitions
