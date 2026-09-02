@@ -2,32 +2,67 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { FaWhatsapp, FaGift, FaBuilding, FaShippingFast, FaGlobeAsia, FaPhone } from "react-icons/fa";
+import { useRef, useState } from "react";
+import { FaWhatsapp, FaGift, FaBuilding, FaShippingFast, FaGlobeAsia, FaPhone, FaMinus, FaPlus } from "react-icons/fa";
 import { MdCardGiftcard } from "react-icons/md";
+
+const HAMPER_ITEMS = [
+  { id: "dryFruitPutharekulu", name: "Dry Fruit Putharekulu" },
+  { id: "kova", name: "Kova Putharekulu" },
+  { id: "chocolate", name: "Chocolate Putharekulu" },
+  { id: "boost", name: "Boost Putharekulu" },
+  { id: "samosa", name: "Samosa Putharekulu" },
+] as const;
+
+type HamperItemId = (typeof HAMPER_ITEMS)[number]["id"];
+
+const WHATSAPP_NUMBER = "918500904835";
+
+function buildHamperWhatsAppUrl(quantities: Record<HamperItemId, number>): string {
+  const selectedItems = HAMPER_ITEMS.filter((item) => quantities[item.id] > 0);
+
+  let message = "*Hello! I'd like to order a custom Gift Hamper from AR Traditional Foods:*\n\n";
+  message += "🎁 *GIFT HAMPER - CUSTOM SELECTION:*\n";
+
+  if (selectedItems.length === 0) {
+    message += "_No items selected yet_\n";
+  } else {
+    selectedItems.forEach((item, index) => {
+      message += `${index + 1}. ${item.name} x ${quantities[item.id]}\n`;
+    });
+  }
+
+  message += "\n_Please share pricing and delivery details. Thank you!_";
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
 
 export default function SpecialOffers() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [hamperQuantities, setHamperQuantities] = useState<Record<HamperItemId, number>>({
+    dryFruitPutharekulu: 0,
+    kova: 0,
+    chocolate: 0,
+    boost: 0,
+    samosa: 0,
+  });
 
-  const offers = [
-    {
-      icon: <FaGift className="w-12 h-12" />,
-      title: "Gift Hampers",
-      description: "Beautifully packaged premium gift boxes with assorted sweets",
-      features: ["Customizable packs", "Premium packaging", "Greeting cards included"],
-      startingPrice: "₹999",
-      color: "from-[var(--gold-600)] to-[var(--gold-700)]",
-    },
-    {
-      icon: <FaBuilding className="w-12 h-12" />,
-      title: "Corporate Gifting",
-      description: "Bulk orders for corporate events, festivals, and celebrations",
-      features: ["Minimum 50 packs", "Company branding option", "Timely delivery"],
-      startingPrice: "₹25,000",
-      color: "from-[var(--maroon)] to-[var(--burgundy-700)]",
-    },
-  ];
+  const updateHamperQuantity = (id: HamperItemId, delta: number) => {
+    setHamperQuantities((prev) => ({
+      ...prev,
+      [id]: Math.min(5, Math.max(0, prev[id] + delta)),
+    }));
+  };
+
+  const corporateOffer = {
+    icon: <FaBuilding className="w-12 h-12" />,
+    title: "Corporate Gifting",
+    description: "Bulk orders for corporate events, festivals, and celebrations",
+    features: ["Minimum 50 packs", "Company branding option", "Timely delivery"],
+    startingPrice: "₹25,000",
+    color: "from-[var(--maroon)] to-[var(--burgundy-700)]",
+  };
 
   return (
     <section
@@ -75,75 +110,162 @@ export default function SpecialOffers() {
 
         {/* Offers Grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {offers.map((offer, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              whileHover={{ y: -10 }}
-              className="group"
-            >
-              <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 border border-[var(--gold)]/20">
-                {/* Header with Icon */}
-                <div className={`bg-gradient-to-r ${offer.color} p-8 text-white relative overflow-hidden`}>
+          {/* Gift Hampers - Customizable */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            whileHover={{ y: -10 }}
+            className="group"
+          >
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 border border-[var(--gold)]/20">
+              <div className="bg-gradient-to-r from-[var(--gold-600)] to-[var(--gold-700)] p-8 text-white relative overflow-hidden">
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"
+                />
+                <div className="relative">
                   <motion.div
-                    animate={{
-                      scale: [1, 1.1, 1],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                    }}
-                    className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"
-                  />
-                  <div className="relative">
-                    <motion.div
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                      className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl mb-4"
-                    >
-                      {offer.icon}
-                    </motion.div>
-                    <h3 className="text-3xl font-bold mb-2">{offer.title}</h3>
-                    <p className="text-white/90 text-lg">{offer.description}</p>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8">
-                  <div className="space-y-4 mb-6">
-                    {offer.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center gap-3">
-                        <div className="flex-shrink-0 w-6 h-6 bg-[var(--gold)]/20 rounded-full flex items-center justify-center">
-                          <span className="text-[var(--gold)] text-sm">✓</span>
-                        </div>
-                        <span className="text-gray-700">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="border-t border-gray-200 pt-6 mb-6">
-                    <div className="flex items-baseline gap-2 mb-2">
-                      <span className="text-sm text-gray-600">Starting from</span>
-                      <span className="text-3xl font-bold text-[var(--maroon)]">
-                        {offer.startingPrice}
-                      </span>
-                    </div>
-                  </div>
-
-                  <motion.a
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    href="https://wa.me/918500904835"
-                    className="block w-full bg-[var(--maroon)] text-white text-center py-4 rounded-xl font-bold hover:bg-[var(--burgundy-800)] transition-all duration-300 shadow-lg hover:shadow-xl"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                    className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl mb-4"
                   >
-                    Inquire on WhatsApp
-                  </motion.a>
+                    <FaGift className="w-12 h-12" />
+                  </motion.div>
+                  <h3 className="text-3xl font-bold mb-2">Gift Hampers</h3>
+                  <p className="text-white/90 text-lg">
+                    Build your own hamper — choose up to 5 of each item
+                  </p>
                 </div>
               </div>
-            </motion.div>
-          ))}
+
+              <div className="p-8">
+                <p className="text-sm text-gray-600 mb-4">
+                  Customizable packs with premium packaging. Select quantities for each item (0–5):
+                </p>
+
+                <div className="space-y-4 mb-6">
+                  {HAMPER_ITEMS.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-between gap-3 py-2 border-b border-gray-100 last:border-0"
+                    >
+                      <span className="text-gray-800 font-medium text-sm sm:text-base flex-1">
+                        {item.name}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => updateHamperQuantity(item.id, -1)}
+                          disabled={hamperQuantities[item.id] === 0}
+                          className="flex items-center justify-center w-8 h-8 bg-[var(--maroon)] text-white rounded-lg hover:bg-[var(--burgundy-800)] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                          aria-label={`Decrease ${item.name}`}
+                        >
+                          <FaMinus className="w-3 h-3" />
+                        </button>
+                        <span className="w-8 text-center font-bold text-[var(--maroon)]">
+                          {hamperQuantities[item.id]}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => updateHamperQuantity(item.id, 1)}
+                          disabled={hamperQuantities[item.id] >= 5}
+                          className="flex items-center justify-center w-8 h-8 bg-[var(--maroon)] text-white rounded-lg hover:bg-[var(--burgundy-800)] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                          aria-label={`Increase ${item.name}`}
+                        >
+                          <FaPlus className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-2 mb-6">
+                  {["Premium packaging", "Greeting cards included", "Customizable selection"].map((feature) => (
+                    <div key={feature} className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 bg-[var(--gold)]/20 rounded-full flex items-center justify-center">
+                        <span className="text-[var(--gold)] text-sm">✓</span>
+                      </div>
+                      <span className="text-gray-700 text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  href={buildHamperWhatsAppUrl(hamperQuantities)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full bg-[var(--maroon)] text-white text-center py-4 rounded-xl font-bold hover:bg-[var(--burgundy-800)] transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  Order Custom Hamper on WhatsApp
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Corporate Gifting */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            whileHover={{ y: -10 }}
+            className="group"
+          >
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 border border-[var(--gold)]/20">
+              <div className={`bg-gradient-to-r ${corporateOffer.color} p-8 text-white relative overflow-hidden`}>
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"
+                />
+                <div className="relative">
+                  <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                    className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl mb-4"
+                  >
+                    {corporateOffer.icon}
+                  </motion.div>
+                  <h3 className="text-3xl font-bold mb-2">{corporateOffer.title}</h3>
+                  <p className="text-white/90 text-lg">{corporateOffer.description}</p>
+                </div>
+              </div>
+
+              <div className="p-8">
+                <div className="space-y-4 mb-6">
+                  {corporateOffer.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 bg-[var(--gold)]/20 rounded-full flex items-center justify-center">
+                        <span className="text-[var(--gold)] text-sm">✓</span>
+                      </div>
+                      <span className="text-gray-700">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="border-t border-gray-200 pt-6 mb-6">
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <span className="text-sm text-gray-600">Starting from</span>
+                    <span className="text-3xl font-bold text-[var(--maroon)]">
+                      {corporateOffer.startingPrice}
+                    </span>
+                  </div>
+                </div>
+
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  className="block w-full bg-[var(--maroon)] text-white text-center py-4 rounded-xl font-bold hover:bg-[var(--burgundy-800)] transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  Inquire on WhatsApp
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
         </div>
 
         {/* Benefits Banner */}

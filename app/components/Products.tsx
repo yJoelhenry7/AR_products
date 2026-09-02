@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations, useLocale } from 'next-intl';
 import { useCart } from '../context/CartContext';
+import { useProductLabels } from '../hooks/useProductLabels';
 import { FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
 import Link from 'next/link';
 
@@ -15,6 +16,7 @@ export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const t = useTranslations('products');
   const locale = useLocale();
+  const { getProductName, getProductDescription } = useProductLabels();
   const { items, addToCart, updateQuantity, removeFromCart } = useCart();
 
   const products = [
@@ -28,7 +30,7 @@ export default function Products() {
       id: "chocolate",
       category: "Premium",
       image: "/putharekulu/choclate_putharekhulu.jpg",
-      price: "₹300",
+      price: "₹450",
     },
     {
       id: "jaggeryDryFruits",
@@ -40,56 +42,56 @@ export default function Products() {
       id: "sugarDryFruits",
       category: "Classic",
       image: "/putharekulu/sugar_dry_fruits_putharekhulu.jpg",
-      price: "₹300",
+      price: "₹250",
     },
     {
       id: "kova",
       category: "Premium",
       image: "/putharekulu/kova_putharekhulu.jpg",
-      price: "₹300",
+      price: "₹450",
     },
     {
       id: "samosa",
       category: "Premium",
       image: "/putharekulu/samosa_putharekhulu.jpg",
-      price: "₹300",
+      price: "₹450",
     },
     {
       id: "horlicksBoost",
       category: "Premium",
       image: "/putharekulu/horlicks_and_boost_putharekhulu.jpg",
-      price: "₹300",
+      price: "₹450",
     },
     {
       id: "sugarFree",
       category: "Special",
       image: "/putharekulu/diet_sugar_putharekhulu.jpg",
-      price: "₹300",
+      price: "₹500",
     },
     // Sweets & Hot Category
     {
       id: "bellamKommulu",
       category: "Sweets & Hot",
       image: "/products/sweets and hot/bellam kommulu.jpg",
-      price: "₹350",
+      price: "₹450",
     },
     {
       id: "chegodilu",
       category: "Sweets & Hot",
       image: "/products/sweets and hot/chegodilu.jpg",
-      price: "₹350",
+      price: "₹450",
     },
     {
       id: "bellamBoondi",
       category: "Sweets & Hot",
       image: "/products/sweets and hot/Bellam boondi.jpg",
-      price: "₹350",
+      price: "₹450",
     },
     {
       id: "karamVerusenagalu",
       category: "Sweets & Hot",
       image: "/products/sweets and hot/Karam Verusenagalu.jpg",
-      price: "₹350",
+      price: "₹450",
     },
     {
       id: "bellamMukkalu",
@@ -134,10 +136,10 @@ export default function Products() {
       price: "₹350",
     },
     {
-      id: "sunnundalu",
+      id: "thokkuduLaddu",
       category: "Sweets & Hot",
       image: "/products/sweets and hot/sunnundalu.jpg",
-      price: "₹350",
+      price: "₹450",
     },
     {
       id: "verusenagaUndalu",
@@ -162,7 +164,7 @@ export default function Products() {
     const priceNumber = parseInt(product.price.replace('₹', ''));
     addToCart({
       id: product.id,
-      name: t(`${product.id}.name`),
+      name: getProductName(product.id),
       price: priceNumber,
       image: product.image,
     });
@@ -275,7 +277,7 @@ export default function Products() {
                   >
                     <Image
                       src={product.image}
-                      alt={t(`${product.id}.name`)}
+                      alt={getProductName(product.id)}
                       fill
                       className="object-cover rounded-lg"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -289,10 +291,10 @@ export default function Products() {
                 {/* Product Info */}
                 <div className="p-6 flex flex-col flex-1">
                   <h3 className="text-xl font-bold text-[var(--maroon)] mb-2 group-hover:text-[var(--gold-700)] transition-colors duration-300">
-                    {t(`${product.id}.name`)}
+                    {getProductName(product.id)}
                   </h3>
                   <p className="text-gray-600 mb-4 text-sm leading-relaxed flex-1">
-                    {t(`${product.id}.description`)}
+                    {getProductDescription(product.id)}
                   </p>
                   <div className="flex items-center justify-between mb-4">
                     <div>
