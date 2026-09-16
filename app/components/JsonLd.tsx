@@ -2,17 +2,17 @@ export default function JsonLd() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://artraditionalfoods.com",
-    "name": "AR Traditional Foods",
-    "alternateName": "AR Traditional",
+    "@id": "https://www.venkateswaraproducts.com",
+    "name": "AR Products by Venkateswara Products",
+    "alternateName": ["AR Products", "Venkateswara Products"],
     "description": "Authentic Atreyapuram Pootharekulu and traditional Andhra sweets. Worldwide door delivery. Handcrafted with love using traditional recipes.",
-    "url": "https://artraditionalfoods.com",
+    "url": "https://www.venkateswaraproducts.com",
     "telephone": "+918500904835",
     "email": "venkateswara.foods@gmail.com",
-    "image": "https://artraditionalfoods.com/logo.png",
+    "image": "https://www.venkateswaraproducts.com/logo.png",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://artraditionalfoods.com/logo.png",
+      "url": "https://www.venkateswaraproducts.com/logo.png",
       "width": "512",
       "height": "512"
     },
@@ -83,25 +83,25 @@ export default function JsonLd() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://artraditionalfoods.com"
+        "item": "https://www.venkateswaraproducts.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Products",
-        "item": "https://artraditionalfoods.com/#products"
+        "item": "https://www.venkateswaraproducts.com/#products"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": "About",
-        "item": "https://artraditionalfoods.com/#about"
+        "item": "https://www.venkateswaraproducts.com/#about"
       },
       {
         "@type": "ListItem",
         "position": 4,
         "name": "Contact",
-        "item": "https://artraditionalfoods.com/#contact"
+        "item": "https://www.venkateswaraproducts.com/#contact"
       }
     ]
   };
@@ -111,21 +111,21 @@ export default function JsonLd() {
     "@type": "Product",
     "name": "Atreyapuram Pootharekulu",
     "description": "Authentic paper-thin rice wafers with jaggery and ghee, a traditional Andhra Pradesh delicacy",
-    "image": "https://artraditionalfoods.com/products/pootharekulu.png",
+    "image": "https://www.venkateswaraproducts.com/products/pootharekulu.png",
     "brand": {
       "@type": "Brand",
-      "name": "AR Traditional Foods"
+      "name": "AR Products by Venkateswara Products"
     },
     "offers": {
       "@type": "Offer",
-      "url": "https://artraditionalfoods.com/#products",
+      "url": "https://www.venkateswaraproducts.com/#products",
       "priceCurrency": "INR",
       "price": "349",
       "priceValidUntil": "2027-12-31",
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",
-        "name": "AR Traditional Foods"
+        "name": "AR Products by Venkateswara Products"
       }
     },
     "aggregateRating": {

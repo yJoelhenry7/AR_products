@@ -56,9 +56,12 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-3xl font-bold text-[var(--gold)] mb-4 font-serif">
-              AR Traditional Foods
+            <h3 className="text-3xl font-bold text-[var(--gold)] mb-1 font-serif">
+              AR Products
             </h3>
+            <p className="text-white/70 text-sm mb-4">
+              by Venkateswara Products
+            </p>
             <p className="text-white/80 mb-4 leading-relaxed">
               {t('tagline')}
             </p>
@@ -196,7 +199,7 @@ export default function Footer() {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-white/70 text-sm text-center md:text-left">
-              © {currentYear} AR Traditional Foods. {t('rights')}
+              © {currentYear} AR Products by Venkateswara Products. {t('rights')}
             </p>
             <p className="text-white/70 text-sm flex items-center gap-2">
               Made with{" "}

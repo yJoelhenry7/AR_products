@@ -26,32 +26,32 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   
   return {
-    title: "AR Traditional Foods - Authentic Atreyapuram Pootharekulu | Andhra Sweets",
-    description: "V Ashok Kumar's AR Traditional Foods - Authentic Atreyapuram Pootharekulu and traditional Andhra sweets. Worldwide door delivery. Order fresh handcrafted sweets via WhatsApp. Premium quality, 100% pure ingredients.",
-    keywords: "Atreyapuram Pootharekulu, AR Traditional Foods, Andhra sweets, traditional sweets, paper thin sweet, Indian sweets, online sweet shop, worldwide delivery, pootharekulu online, dry fruit pootharekulu, chocolate pootharekulu, V Ashok Kumar",
-    authors: [{ name: "AR Traditional Foods" }],
-    creator: "AR Traditional Foods",
-    publisher: "AR Traditional Foods",
+    title: "AR Products by Venkateswara Products - Authentic Atreyapuram Pootharekulu | Andhra Sweets",
+    description: "V Ashok Kumar's AR Products by Venkateswara Products - Authentic Atreyapuram Pootharekulu and traditional Andhra sweets. Worldwide door delivery. Order fresh handcrafted sweets via WhatsApp. Premium quality, 100% pure ingredients.",
+    keywords: "Atreyapuram Pootharekulu, AR Products, Venkateswara Products, Andhra sweets, traditional sweets, paper thin sweet, Indian sweets, online sweet shop, worldwide delivery, pootharekulu online, dry fruit pootharekulu, chocolate pootharekulu, V Ashok Kumar",
+    authors: [{ name: "AR Products by Venkateswara Products" }],
+    creator: "AR Products by Venkateswara Products",
+    publisher: "Venkateswara Products",
     formatDetection: {
       email: false,
       address: false,
       telephone: false,
     },
-    metadataBase: new URL("https://artraditionalfoods.com"),
+    metadataBase: new URL("https://www.venkateswaraproducts.com"),
     alternates: {
       canonical: "/",
     },
     openGraph: {
-      title: "AR Traditional Foods - Authentic Atreyapuram Pootharekulu",
+      title: "AR Products by Venkateswara Products - Authentic Atreyapuram Pootharekulu",
       description: "Order authentic Atreyapuram Pootharekulu online. Handcrafted traditional Andhra sweets with worldwide delivery. Premium quality, 100% pure ingredients.",
-      url: "https://artraditionalfoods.com",
-      siteName: "AR Traditional Foods",
+      url: "https://www.venkateswaraproducts.com",
+      siteName: "AR Products by Venkateswara Products",
       images: [
         {
           url: "/logo.png",
           width: 1200,
           height: 630,
-          alt: "AR Traditional Foods - Atreyapuram Pootharekulu",
+          alt: "AR Products by Venkateswara Products - Atreyapuram Pootharekulu",
         },
       ],
       locale: locale === 'te' ? 'te_IN' : 'en_IN',
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     twitter: {
       card: "summary_large_image",
-      title: "AR Traditional Foods - Authentic Atreyapuram Pootharekulu",
+      title: "AR Products by Venkateswara Products - Authentic Atreyapuram Pootharekulu",
       description: "Order authentic Atreyapuram Pootharekulu online. Handcrafted traditional Andhra sweets with worldwide delivery.",
       images: ["/logo.png"],
       creator: "@artraditional",

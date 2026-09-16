@@ -21,7 +21,7 @@ const WHATSAPP_NUMBER = "918500904835";
 function buildHamperWhatsAppUrl(quantities: Record<HamperItemId, number>): string {
   const selectedItems = HAMPER_ITEMS.filter((item) => quantities[item.id] > 0);
 
-  let message = "*Hello! I'd like to order a custom Gift Hamper from AR Traditional Foods:*\n\n";
+  let message = "*Hello! I'd like to order a custom Gift Hamper from AR Products by Venkateswara Products:*\n\n";
   message += "🎁 *GIFT HAMPER - CUSTOM SELECTION:*\n";
 
   if (selectedItems.length === 0) {

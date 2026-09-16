@@ -64,7 +64,7 @@ export default function Navbar() {
               <div className="relative h-28 w-56 md:h-24 md:w-64">
                 <Image
                   src="/logo.png"
-                  alt="AR Traditional Foods"
+                  alt="AR Products by Venkateswara Products"
                   fill
                   className="object-contain drop-shadow-lg"
                   priority

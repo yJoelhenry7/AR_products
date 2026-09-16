@@ -23,49 +23,49 @@ export default function Products() {
     {
       id: "karampodi",
       category: "Premium",
-      image: "/putharekulu/karampodi_putharekhulu.jpg",
+      image: "/products/putharekulu/karampodi_putharekhulu.png",
       price: "₹300",
     },
     {
       id: "chocolate",
       category: "Premium",
-      image: "/putharekulu/choclate_putharekhulu.jpg",
+      image: "/products/putharekulu/choclate_putharekhulu.png",
       price: "₹450",
     },
     {
       id: "jaggeryDryFruits",
       category: "Classic",
-      image: "/putharekulu/bellam_dry_fruits_putharekhulu.jpg",
+      image: "/products/putharekulu/bellam_dry_fruits_putharekhulu.png",
       price: "₹300",
     },
     {
       id: "sugarDryFruits",
       category: "Classic",
-      image: "/putharekulu/sugar_dry_fruits_putharekhulu.jpg",
+      image: "/products/putharekulu/sugar_dry_fruits_putharekhulu.png",
       price: "₹250",
     },
     {
       id: "kova",
       category: "Premium",
-      image: "/putharekulu/kova_putharekhulu.jpg",
+      image: "/products/putharekulu/kova_putharekhulu.png",
       price: "₹450",
     },
     {
       id: "samosa",
       category: "Premium",
-      image: "/putharekulu/samosa_putharekhulu.jpg",
+      image: "/products/putharekulu/samosa_putharekhulu.png",
       price: "₹450",
     },
     {
       id: "horlicksBoost",
       category: "Premium",
-      image: "/putharekulu/horlicks_and_boost_putharekhulu.jpg",
+      image: "/products/putharekulu/horlicks_and_boost_putharekhulu.png",
       price: "₹450",
     },
     {
       id: "sugarFree",
       category: "Special",
-      image: "/putharekulu/diet_sugar_putharekhulu.jpg",
+      image: "/products/putharekulu/diet_sugar_putharekhulu.png",
       price: "₹500",
     },
     // Sweets & Hot Category
@@ -84,7 +84,7 @@ export default function Products() {
     {
       id: "bellamBoondi",
       category: "Sweets & Hot",
-      image: "/products/sweets and hot/Bellam boondi.jpg",
+      image: "/products/sweets and hot/Bellam boondi.png",
       price: "₹450",
     },
     {
@@ -96,7 +96,7 @@ export default function Products() {
     {
       id: "bellamMukkalu",
       category: "Sweets & Hot",
-      image: "/products/sweets and hot/Bellam Mukkalu.jpg",
+      image: "/products/sweets and hot/Bellam Mukkalu.png",
       price: "₹350",
     },
     {
@@ -126,7 +126,7 @@ export default function Products() {
     {
       id: "ringGavvalu",
       category: "Sweets & Hot",
-      image: "/products/sweets and hot/Ring Gavvalu.jpg",
+      image: "/products/sweets and hot/Ring Gavvalu.png",
       price: "₹350",
     },
     {
@@ -152,7 +152,16 @@ export default function Products() {
   const filteredProducts =
     selectedCategory === "All"
       ? products
-      : products.filter((p) => p.category === selectedCategory);
+      : selectedCategory === "Putharekulu"
+        ? products.filter((p) => p.category !== "Sweets & Hot")
+        : products.filter((p) => p.category === selectedCategory);
+
+  const categoryBadgeLabels: Record<string, { en: string; te: string }> = {
+    Classic: { en: "Classic", te: "క్లాసిక్" },
+    Premium: { en: "Premium", te: "ప్రీమియం" },
+    Special: { en: "Special", te: "ప్రత్యేక" },
+    "Sweets & Hot": { en: "Sweets & Hot", te: "స్వీట్స్ & హాట్" },
+  };
 
   // Get quantity of a product in cart
   const getProductQuantity = (productId: string): number => {
@@ -236,22 +245,31 @@ export default function Products() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-4 mb-16"
         >
-          {['All', 'Classic', 'Premium', 'Special', 'Sweets & Hot'].map((category, index) => (
+          {(
+            [
+              { id: "All", en: "All", te: "అన్నీ" },
+              { id: "Putharekulu", en: "Putharekulu", te: "పూతరేకులు" },
+              { id: "Classic", en: "Classic", te: "క్లాసిక్" },
+              { id: "Premium", en: "Premium", te: "ప్రీమియం" },
+              { id: "Special", en: "Special", te: "ప్రత్యేక" },
+              { id: "Sweets & Hot", en: "Sweets & Hot", te: "స్వీట్స్ & హాట్" },
+            ]
+          ).map((category, index) => (
             <motion.button
-              key={category}
+              key={category.id}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => setSelectedCategory(category.id)}
               className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                selectedCategory === category
+                selectedCategory === category.id
                   ? "bg-[var(--maroon)] text-white shadow-lg"
                   : "bg-white text-[var(--maroon)] border-2 border-[var(--maroon)]/30 hover:border-[var(--maroon)] hover:shadow-md"
               }`}
             >
-              {t(`category${category}`)}
+              {locale === "te" ? category.te : category.en}
             </motion.button>
           ))}
         </motion.div>
@@ -284,7 +302,9 @@ export default function Products() {
                     />
                   </motion.div>
                   <div className="absolute top-4 right-4 bg-[var(--gold)] text-[var(--maroon)] px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                    {t(`category${product.category}`)}
+                    {locale === "te"
+                      ? (categoryBadgeLabels[product.category]?.te ?? product.category)
+                      : (categoryBadgeLabels[product.category]?.en ?? product.category)}
                   </div>
                 </div>
 

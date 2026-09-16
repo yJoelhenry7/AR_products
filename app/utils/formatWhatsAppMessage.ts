@@ -24,8 +24,8 @@ export function formatWhatsAppMessage(
   
   // Header
   let message = isEnglish
-    ? "*Hello! I'd like to order from AR Traditional Foods:*\n\n"
-    : "*నమస్కారం! నేను AR ట్రెడిషనల్ ఫుడ్స్ నుండి ఆర్డర్ చేయాలనుకుంటున్నాను:*\n\n";
+    ? "*Hello! I'd like to order from AR Products by Venkateswara Products:*\n\n"
+    : "*నమస్కారం! నేను AR ప్రొడక్ట్స్ బై వెంకటేశ్వర ప్రొడక్ట్స్ నుండి ఆర్డర్ చేయాలనుకుంటున్నాను:*\n\n";
 
   // Order Details Header
   message += isEnglish

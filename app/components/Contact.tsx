@@ -21,7 +21,7 @@ export default function Contact() {
   // Replace with your actual WhatsApp Business number (format: country code + number without + or spaces)
   const whatsappNumber = "918500904835"; // Venkateswara Traditional Foods
   const whatsappMessage = encodeURIComponent(
-    "Hello! I'm interested in ordering traditional Andhra sweets from AR Traditional Foods."
+    "Hello! I'm interested in ordering traditional Andhra sweets from AR Products by Venkateswara Products."
   );
 
   const contactInfo = [

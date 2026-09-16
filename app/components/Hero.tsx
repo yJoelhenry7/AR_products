@@ -13,13 +13,18 @@ export default function Hero() {
   const t = useTranslations('hero');
   const [currentImage, setCurrentImage] = useState(0);
   
-  // Product images for carousel
+  // Product images from putharekulu + sweets and hot
   const carouselImages = [
-    "/products/putharekulu/chocolate-pootharekulu.png",
-    "/products/putharekulu/jaggery-dry-fruits-pootharekulu.png",
-    "/products/putharekulu/dry-fruit-pootharekulu.png",
-    "/products/putharekulu/kova-pootharekulu.png",
-    "/products/putharekulu/traditional-pootharekulu.png",
+    "/products/putharekulu/choclate_putharekhulu.png",
+    "/products/putharekulu/bellam_dry_fruits_putharekhulu.png",
+    "/products/putharekulu/kova_putharekhulu.png",
+    "/products/putharekulu/karampodi_putharekhulu.png",
+    "/products/putharekulu/samosa_putharekhulu.png",
+    "/products/sweets and hot/bellam kommulu.jpg",
+    "/products/sweets and hot/chegodilu.jpg",
+    "/products/sweets and hot/Bellam boondi.png",
+    "/products/sweets and hot/Masala Mixture.jpg",
+    "/products/sweets and hot/Verusenaga_Undalu.jpg",
   ];
 
   // Auto-play carousel with smoother transitions
@@ -74,7 +79,7 @@ export default function Hero() {
           >
             <Image
               src={carouselImages[currentImage]}
-              alt="Pootharekulu"
+              alt="AR Products"
               fill
               className="object-cover"
               priority={currentImage === 0}
