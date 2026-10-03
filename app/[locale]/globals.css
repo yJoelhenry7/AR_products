@@ -25,6 +25,13 @@
   --gold-800: #92400e;
   --gold-900: #78350f;
   --gold: #d4af37;
+  /* Invoice / shared tokens (aligned with SV invoice layout, AR maroon brand) */
+  --bronze: #b45309;
+  --deep: #800020;
+  --deep-soft: #6b1515;
+  --cream: #fffaf0;
+  --ivory: #fef2f2;
+  --ink: #1a1a1a;
 }
 
 @theme inline {
@@ -52,8 +59,15 @@
   --color-gold-800: var(--gold-800);
   --color-gold-900: var(--gold-900);
   --color-gold: var(--gold);
+  --color-bronze: var(--bronze);
+  --color-deep: var(--deep);
+  --color-deep-soft: var(--deep-soft);
+  --color-cream: var(--cream);
+  --color-ivory: var(--ivory);
+  --color-ink: var(--ink);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 body {
@@ -64,4 +78,35 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .invoice-workspace {
+    padding: 0 !important;
+  }
+
+  .invoice-preview-pane {
+    position: static !important;
+    max-width: none !important;
+  }
+
+  .invoice-sheet {
+    box-shadow: none !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
 }

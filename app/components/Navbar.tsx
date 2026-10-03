@@ -20,8 +20,9 @@ export default function Navbar() {
   const { items, getTotalItems } = useCart();
   const cartItemCount = getTotalItems();
   
-  // Check if we're on cart page
-  const isCartPage = pathname?.includes('/cart');
+  // Solid nav on inner pages (cart / invoice)
+  const isInnerPage =
+    pathname?.includes("/cart") || pathname?.includes("/invoice");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,12 +33,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const homeBase = isInnerPage ? `/${locale}` : "";
   const navItems = [
-    { name: t('home'), href: "#home" },
-    { name: t('products'), href: "#products" },
-    { name: t('about'), href: "#about" },
-    { name: t('occasions'), href: "#features" },
-    { name: t('contact'), href: "#contact" },
+    { name: t("home"), href: `${homeBase}#home` },
+    { name: t("products"), href: `${homeBase}#products` },
+    { name: t("about"), href: `${homeBase}#about` },
+    { name: t("occasions"), href: `${homeBase}#features` },
+    { name: t("contact"), href: `${homeBase}#contact` },
   ];
 
   return (
@@ -46,7 +48,7 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled || isCartPage
+        scrolled || isInnerPage
           ? "bg-[var(--maroon)]/95 backdrop-blur-md shadow-lg"
           : "bg-transparent"
       }`}
@@ -60,7 +62,7 @@ export default function Navbar() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex-shrink-0"
           >
-            <a href="#home" className="flex items-center">
+            <Link href={`/${locale}`} className="flex items-center">
               <div className="relative h-28 w-56 md:h-24 md:w-64">
                 <Image
                   src="/logo.png"
@@ -71,7 +73,7 @@ export default function Navbar() {
                   sizes="(max-width: 768px) 224px, 256px"
                 />
               </div>
-            </a>
+            </Link>
           </motion.div>
 
           {/* Desktop Navigation */}

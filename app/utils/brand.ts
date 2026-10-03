@@ -1,0 +1,10 @@
+export const BRAND_NAME = "AR Products";
+export const BRAND_TAGLINE = "by Venkateswara Products";
+export const SITE_URL = "https://www.venkateswaraproducts.com";
+export const WHATSAPP_NUMBER = "918500904835";
+export const PHONE_DISPLAY = "+91 85009 04835";
+export const PHONE_TEL = "+918500904835";
+export const GOOGLE_BUSINESS_URL = "https://share.google/S7EGg1Pm9Sq9ffpg4";
+export const LOGO_SRC = "/logo.png";
+export const OG_IMAGE_PATH = "/logo.png";
+export const OG_IMAGE_URL = `${SITE_URL}${OG_IMAGE_PATH}`;
