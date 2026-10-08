@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import FolkSectionBackground from "../../components/FolkSectionBackground";
 import InvoiceWorkspace from "../../components/invoice/InvoiceWorkspace";
-import { BRAND_NAME, SITE_URL } from "../../utils/brand";
+import { buildPageMetadata } from "../../utils/seo";
 import enMessages from "../../../messages/en.json";
 import teMessages from "../../../messages/te.json";
 
@@ -11,25 +10,18 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props) {
   const { locale } = await params;
   const seo =
     locale === "te" ? teMessages.invoice.seo : enMessages.invoice.seo;
 
-  return {
+  return buildPageMetadata({
+    locale,
+    path: `/${locale}/invoice`,
     title: seo.title,
     description: seo.description,
-    robots: { index: false, follow: false },
-    alternates: {
-      canonical: `/${locale}/invoice`,
-    },
-    openGraph: {
-      title: seo.title,
-      description: seo.description,
-      url: `${SITE_URL}/${locale}/invoice`,
-      siteName: BRAND_NAME,
-    },
-  };
+    noIndex: true,
+  });
 }
 
 export default async function InvoicePage() {

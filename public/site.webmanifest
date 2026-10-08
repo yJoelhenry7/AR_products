@@ -1,6 +1,6 @@
 {
-  "name": "AR Traditional Foods",
-  "short_name": "AR Traditional",
+  "name": "AR Products by Venkateswara Products",
+  "short_name": "AR Products",
   "description": "Authentic Atreyapuram Pootharekulu and traditional Andhra sweets. Worldwide delivery.",
   "start_url": "/",
   "display": "standalone",
@@ -24,6 +24,15 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-share.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "AR Products by Venkateswara Products"
     }
   ],
   "categories": ["food", "shopping", "lifestyle"],

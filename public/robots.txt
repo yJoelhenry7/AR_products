@@ -2,15 +2,19 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://artraditionalfoods.com/sitemap.xml
+# Sitemaps
+Sitemap: https://www.venkateswaraproducts.com/sitemap.xml
 
-# Disallow admin paths (if any)
+# Crawl budget hygiene
 Disallow: /api/
-Disallow: /_next/static/
+Disallow: /*/cart
+Disallow: /*/invoice
 
-# Allow all images
+# Allow product & share images for previews
 Allow: /products/
+Allow: /og-share.png
+Allow: /logo.png
+Allow: /apple-touch-icon.png
 Allow: /*.png
 Allow: /*.jpg
 Allow: /*.jpeg

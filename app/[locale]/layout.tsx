@@ -1,10 +1,20 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import type { Viewport } from "next";
 import "./globals.css";
 import JsonLd from "../components/JsonLd";
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { CartProvider } from '../context/CartContext';
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { CartProvider } from "../context/CartContext";
+import { OG_IMAGE_URL } from "../utils/brand";
+import { buildSiteMetadata } from "../utils/seo";
+import enMessages from "../../messages/en.json";
+import teMessages from "../../messages/te.json";
+
+const messageCatalogs = {
+  en: enMessages,
+  te: teMessages,
+} as const;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,94 +26,45 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const locales = ['en', 'te'];
+const locales = ["en", "te"] as const;
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#800020" },
+    { media: "(prefers-color-scheme: dark)", color: "#4a0e0e" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
-  
-  return {
-    title: "AR Products by Venkateswara Products - Authentic Atreyapuram Pootharekulu | Andhra Sweets",
-    description: "V Ashok Kumar's AR Products by Venkateswara Products - Authentic Atreyapuram Pootharekulu and traditional Andhra sweets. Worldwide door delivery. Order fresh handcrafted sweets via WhatsApp. Premium quality, 100% pure ingredients.",
-    keywords: "Atreyapuram Pootharekulu, AR Products, Venkateswara Products, Andhra sweets, traditional sweets, paper thin sweet, Indian sweets, online sweet shop, worldwide delivery, pootharekulu online, dry fruit pootharekulu, chocolate pootharekulu, V Ashok Kumar",
-    authors: [{ name: "AR Products by Venkateswara Products" }],
-    creator: "AR Products by Venkateswara Products",
-    publisher: "Venkateswara Products",
-    formatDetection: {
-      email: false,
-      address: false,
-      telephone: false,
-    },
-    metadataBase: new URL("https://www.venkateswaraproducts.com"),
-    alternates: {
-      canonical: "/",
-    },
-    openGraph: {
-      title: "AR Products by Venkateswara Products - Authentic Atreyapuram Pootharekulu",
-      description: "Order authentic Atreyapuram Pootharekulu online. Handcrafted traditional Andhra sweets with worldwide delivery. Premium quality, 100% pure ingredients.",
-      url: "https://www.venkateswaraproducts.com",
-      siteName: "AR Products by Venkateswara Products",
-      images: [
-        {
-          url: "/logo.png",
-          width: 1200,
-          height: 630,
-          alt: "AR Products by Venkateswara Products - Atreyapuram Pootharekulu",
-        },
-      ],
-      locale: locale === 'te' ? 'te_IN' : 'en_IN',
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "AR Products by Venkateswara Products - Authentic Atreyapuram Pootharekulu",
-      description: "Order authentic Atreyapuram Pootharekulu online. Handcrafted traditional Andhra sweets with worldwide delivery.",
-      images: ["/logo.png"],
-      creator: "@artraditional",
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
-    icons: {
-      icon: [
-        { url: "/favicon.ico" },
-        { url: "/favicon.ico", sizes: "16x16", type: "image/x-icon" },
-        { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
-      ],
-      apple: [
-        { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-      ],
-    },
-    manifest: "/site.webmanifest",
-    verification: {
-      google: "your-google-verification-code",
-      yandex: "your-yandex-verification-code",
-    },
-  };
+  const catalog =
+    messageCatalogs[locale as keyof typeof messageCatalogs] ??
+    messageCatalogs.en;
+  return buildSiteMetadata(catalog.seo, locale);
 }
 
 export default async function RootLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  
-  if (!locales.includes(locale as any)) notFound();
-  
+
+  if (!locales.includes(locale as (typeof locales)[number])) notFound();
+
   const messages = await getMessages({ locale });
 
   return (
@@ -112,13 +73,20 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        {/* WhatsApp / crawler-friendly absolute image hints */}
+        <link rel="image_src" href={OG_IMAGE_URL} />
+        <meta property="og:image" content={OG_IMAGE_URL} />
+        <meta property="og:image:secure_url" content={OG_IMAGE_URL} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={OG_IMAGE_URL} />
         <JsonLd />
       </head>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <CartProvider>
-            {children}
-          </CartProvider>
+          <CartProvider>{children}</CartProvider>
         </NextIntlClientProvider>
       </body>
     </html>
